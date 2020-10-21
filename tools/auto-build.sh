@@ -61,13 +61,13 @@ elif [[ "$1" == "-c" ]]; then
 	lxc exec zbx-arm64-20 -- bash -c "echo -e \"APT::Periodic::Enable \"0\";\" > /etc/apt/apt.conf.d/02periodic"
 
 	# Get the IP address for each of the running containers
-	zbx_armhf_18_ip=`lxc list|grep zbx-armhf-18 | awk '{print $6}'`
-	zbx_armhf_20_ip=`lxc list|grep zbx-armhf-20 | awk '{print $6}'`
-	zbx_arm64_18_ip=`lxc list|grep zbx-arm64-18 | awk '{print $6}'`
-	zbx_arm64_20_ip=`lxc list|grep zbx-arm64-20 | awk '{print $6}'`
+	#zbx_armhf_18_ip=`lxc list|grep zbx-armhf-18 | awk '{print $6}'`
+	#zbx_armhf_20_ip=`lxc list|grep zbx-armhf-20 | awk '{print $6}'`
+	#zbx_arm64_18_ip=`lxc list|grep zbx-arm64-18 | awk '{print $6}'`
+	#zbx_arm64_20_ip=`lxc list|grep zbx-arm64-20 | awk '{print $6}'`
 
 	# Pause for user input before ssh so ssh does not timeout if I go for coffee
-	read -p "Please press a key to continue with ssh access testing: "
+	#read -p "Please press a key to continue with ssh access testing: "
 
 	# ssh into each container and sudo to root to take care of fingerprints 
 	# and sudo warnings that can interfear with ansible
@@ -100,6 +100,12 @@ elif [[ "$1" == "-c" ]]; then
 	lxc exec zbx-arm64-18 -- bash -c "apt build-dep zabbix -y"
 	lxc exec zbx-arm64-20 -- bash -c "apt build-dep zabbix -y"
 
+	# Install build essential
+	lxc exec zbx-armhf-18 -- bash -c "apt install build-essential -y"
+	lxc exec zbx-armhf-20 -- bash -c "apt install build-essential -y"
+	lxc exec zbx-arm64-18 -- bash -c "apt install build-essential -y"
+	lxc exec zbx-arm64-20 -- bash -c "apt install build-essential -y"
+
 	# Get zabbix source
 	lxc exec zbx-armhf-18 -- bash -c "apt source zabbix"
 	lxc exec zbx-armhf-20 -- bash -c "apt source zabbix"
@@ -107,10 +113,10 @@ elif [[ "$1" == "-c" ]]; then
 	lxc exec zbx-arm64-20 -- bash -c "apt source zabbix"
 
 	# build
-	lxc exec zbx-armhf-18 -- bash -c "cd zabbix-5.0.4 && debuild -us -uc"
-	lxc exec zbx-armhf-20 -- bash -c "cd zabbix-5.0.4 && debuild -us -uc"
-	lxc exec zbx-arm64-18 -- bash -c "cd zabbix-5.0.4 && debuild -us -uc"
-	lxc exec zbx-arm64-20 -- bash -c "cd zabbix-5.0.4 && debuild -us -uc"
+	lxc exec zbx-armhf-18 -- bash -c "cd zabbix-5.0.4 && dbuild -us -uc"
+	lxc exec zbx-armhf-20 -- bash -c "cd zabbix-5.0.4 && dbuild -us -uc"
+	lxc exec zbx-arm64-18 -- bash -c "cd zabbix-5.0.4 && dbuild -us -uc"
+	lxc exec zbx-arm64-20 -- bash -c "cd zabbix-5.0.4 && dbuild -us -uc"
 
 	# FIXME: copy built .deb's and .ddeb's
 
