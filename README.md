@@ -1,2 +1,2 @@
 # zabbix-arm
-Zabbix Arm
+Zabbix arm and arm64 packages.
