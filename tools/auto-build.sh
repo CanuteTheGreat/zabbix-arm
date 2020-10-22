@@ -113,10 +113,10 @@ elif [[ "$1" == "-c" ]]; then
 	lxc exec zbx-arm64-20 -- bash -c "apt source zabbix"
 
 	# build
-	lxc exec zbx-armhf-18 -- bash -c "cd zabbix-5.0.4 && dbuild -us -uc"
-	lxc exec zbx-armhf-20 -- bash -c "cd zabbix-5.0.4 && dbuild -us -uc"
-	lxc exec zbx-arm64-18 -- bash -c "cd zabbix-5.0.4 && dbuild -us -uc"
-	lxc exec zbx-arm64-20 -- bash -c "cd zabbix-5.0.4 && dbuild -us -uc"
+	lxc exec zbx-armhf-18 -- bash -c "cd zabbix-5.0.4 && debuild -us -uc"
+	lxc exec zbx-armhf-20 -- bash -c "cd zabbix-5.0.4 && debuild -us -uc"
+	lxc exec zbx-arm64-18 -- bash -c "cd zabbix-5.0.4 && debuild -us -uc"
+	lxc exec zbx-arm64-20 -- bash -c "cd zabbix-5.0.4 && debuild -us -uc"
 
 	# FIXME: copy built .deb's and .ddeb's
 
