@@ -106,17 +106,29 @@ elif [[ "$1" == "-c" ]]; then
 	lxc exec zbx-arm64-18 -- bash -c "apt install build-essential -y"
 	lxc exec zbx-arm64-20 -- bash -c "apt install build-essential -y"
 
+	# Install dev scripts
+	lxc exec zbx-armhf-18 -- bash -c "apt install devscripts -y"
+	lxc exec zbx-armhf-20 -- bash -c "apt install devscripts -y"
+	lxc exec zbx-arm64-18 -- bash -c "apt install devscripts -y"
+	lxc exec zbx-arm64-20 -- bash -c "apt install devscripts -y"
+
 	# Get zabbix source
 	lxc exec zbx-armhf-18 -- bash -c "apt source zabbix"
 	lxc exec zbx-armhf-20 -- bash -c "apt source zabbix"
 	lxc exec zbx-arm64-18 -- bash -c "apt source zabbix"
 	lxc exec zbx-arm64-20 -- bash -c "apt source zabbix"
 
+	# Install golang - see bug # ZBX-18459
+	lxc exec zbx-armhf-18 -- bash -c "apt install golang -y"
+	lxc exec zbx-armhf-20 -- bash -c "apt install golang -y"
+	lxc exec zbx-arm64-18 -- bash -c "apt install golang -y"
+	lxc exec zbx-arm64-20 -- bash -c "apt install golang -y"
+
 	# build
-	lxc exec zbx-armhf-18 -- bash -c "cd zabbix-5.0.4 && debuild -us -uc"
-	lxc exec zbx-armhf-20 -- bash -c "cd zabbix-5.0.4 && debuild -us -uc"
-	lxc exec zbx-arm64-18 -- bash -c "cd zabbix-5.0.4 && debuild -us -uc"
-	lxc exec zbx-arm64-20 -- bash -c "cd zabbix-5.0.4 && debuild -us -uc"
+	lxc exec zbx-armhf-18 -- bash -c "cd zabbix-5.* && debuild -us -uc"
+	lxc exec zbx-armhf-20 -- bash -c "cd zabbix-5.* && debuild -us -uc"
+	lxc exec zbx-arm64-18 -- bash -c "cd zabbix-5.* && debuild -us -uc"
+	lxc exec zbx-arm64-20 -- bash -c "cd zabbix-5.* && debuild -us -uc"
 
 	# FIXME: copy built .deb's and .ddeb's
 
