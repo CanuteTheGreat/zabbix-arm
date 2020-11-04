@@ -1,2 +1,2 @@
 # zabbix-arm
-Zabbix arm and arm64 packages.
+Zabbix arm64 auto-build script.
